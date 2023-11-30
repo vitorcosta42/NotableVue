@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-<div class="bg-white border hover:border-blue-400 hover:cursor-pointer px-5 py-2 rounded-2xl flex items-center justify-between">
+<div class="bg-white border-2 hover:border-blue-400 hover:cursor-pointer px-5 py-2 rounded-2xl flex items-center justify-between">
     <v-icon name="pr-paperclip" class="text-gray-400  hover:text-gray-500 " />
   
     <div>
