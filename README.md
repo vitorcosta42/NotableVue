@@ -1,57 +1,60 @@
-# notablevue
+<h1><a href="https://github.com/vitorcosta42/NotableVue"> NotableVue - Vitor Costa </a></h1>
 
-This template should help get you started developing with Vue 3 in Vite.
+<div style="display: inline_block">
+    <img src="https://img.shields.io/badge/Vue.js-blue"/>
+    <img src="https://img.shields.io/badge/Tailwind-blue"/>
+    <img src="https://img.shields.io/badge/Node-blue"/>
+    <img src="https://img.shields.io/badge/Express-blue"/>
+    <img src="https://img.shields.io/badge/MongoDB-blue"/>
+</div>
+<img width="1000" src= "./public/print.png" />
 
-## Recommended IDE Setup
+<h2>Descrição</h2>
+<p>
+  Teste técnico full-stack utilizando Vue.js e Tailwind para o Front-end, e Node, Express e MongoDB para o back-end. Temos criação, edição, exclusão e listagem de anotações em um projeto simples e amigável aos usuários. 
+</p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<h2>Como utilizar</h2>
 
-## Customize configuration
+<h3>1. Clone o repositório:</h3>
+<pre>
+  <code>
+    git clone https://github.com/vitorcosta42/NotableVue.git
+  </code>
+</pre>
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<h3>2. Entre no repositório clonado e instale as dependências:</h3>
+<pre>
+  <code>
+    npm install
+  </code>
+</pre>
 
-## Project Setup
+<h3>3. Inicie o servidor Vue e o servidor Node</h3>
+<pre>
+  <code>
+    npm run dev
+  </code>
+</pre>
+<pre>
+  <code>
+     node server.js
+  </code>
+</pre>
 
-```sh
-npm install
-```
+<h2>Créditos</h2>
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/vitorcosta42">
+        <img src="./public/icon-vitor.jpeg" width="100px;" alt="Foto de Vitor Costa"/><br>
+        <sub>
+          <b>Vitor Costa</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+<h2>Licença</h2>
+<b>All Rights Reserved</b>

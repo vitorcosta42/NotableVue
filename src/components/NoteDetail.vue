@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col  min-h-screen">
     <header class="flex justify-between items-center p-8">
       <h2 class="text-2xl font-bold text-gray-600">Anotações</h2>
       <button
@@ -11,13 +11,13 @@
       </button>
     </header>
 
-    <main class="text-center mb-5">
+    <main class="text-center mb-5 flex-grow">
       <form>
         <div class="mb-4 px-8">
           <textarea
             v-model="anotacoes"
             id="anotacoes"
-            class="p-2 text-gray-500 rounded-xl w-full focus:outline-none focus:ring focus:ring-gray-800"
+            class="p-2 text-gray-500 rounded-xl w-full focus:outline-none focus:ring focus:ring-gray-800 h-[10rem]"
             placeholder="Digite suas anotações..."
             name="anotacoes"
           ></textarea>
@@ -67,7 +67,7 @@
       </form>
     </main>
 
-    <footer class="text-center">
+    <footer class="text-center p-5">
       <button
         class="mr-4 items-center rounded-full p-2 text-center m-auto bg-red-400 hover:bg-red-500"
         @click="openDeleteConfirmModal"

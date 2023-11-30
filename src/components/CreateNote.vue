@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col min-h-screen">
     <header class="flex justify-between items-center p-8">
       <h2 class="text-2xl font-bold text-gray-600">Anotações</h2>
       <button
@@ -11,13 +11,13 @@
       </button>
     </header>
 
-    <main class="text-center mb-5">
+    <main class="text-center mb-5 flex-grow">
       <form>
         <div class="mb-4 px-8">
           <textarea
             v-model="anotacoes"
             id="anotacoes"
-            class="p-2 text-gray-500 rounded-xl w-full focus:outline-none focus:ring focus:ring-gray-800"
+            class="p-2 text-gray-500 rounded-xl w-full h-[10rem]"
             placeholder="Digite suas anotações..."
             name="anotacoes"
           ></textarea>
@@ -31,7 +31,7 @@
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500"> R$ </span>
             <input
               v-model="potencialNegocio"
-              class="pl-10 pr-3 py-3 rounded-full w-full focus:outline-none focus:ring focus:ring-gray-800"
+              class="pl-10 pr-3 py-3 rounded-full w-full "
               type="text"
               id="potencialNegocio"
               name="potencialNegocio"
@@ -42,23 +42,23 @@
           </div>
         </div>
 
-        <div class="px-8 pb-5">
+        <div class="px-8 pb-5"  >
           <label for="categorizacao" class="block text-gray-500 text-left mb-4"
             >Categorização</label
           >
           <vue3-tags-input
             :tags="categorizacao"
-            class="bg-white p-2 text-gray-500 border-0 focus:border-4 focus:border- focus:outline-none focus:ring focus:ring-gray-800 rounded-full w-full"
+            class="bg-white p-2 text-gray-500 rounded-full w-full"
             placeholder="Digite categorias para a anotação..."
             @on-tags-changed="handleChangeTag"
           />
         </div>
 
-        <div class="mb-4 px-8 pb-5">
+        <div class="mb-4 px-8 pb-5 z-0">
           <label for="lembrete" class="block text-gray-500 text-left mb-4">Lembrete</label>
           <input
             v-model="lembrete"
-            class="bg-white p-3 text-gray-500 focus:outline-none focus:ring focus:ring-gray-800 rounded-full w-full"
+            class="bg-white p-3 text-gray-500 rounded-full w-full"
             id="lembrete"
             name="lembrete"
             type="date"
@@ -67,7 +67,7 @@
       </form>
     </main>
 
-    <footer class="text-center">
+    <footer class="text-center p-5">
       <button
         class="mr-4 items-center rounded-full p-2 text-center m-auto bg-red-400 hover:bg-red-500"
         @click="openModalHandler"
@@ -165,4 +165,5 @@ export default {
 .v3ti .v3ti-tag .v3ti-remove-tag:hover {
   color: gray;
 }
+
 </style>
