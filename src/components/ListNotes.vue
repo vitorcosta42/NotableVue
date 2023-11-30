@@ -6,26 +6,11 @@
     </header>
     <main class="p-5 flex-grow">
       <div class="mb-4">
-        <NoteCard />
-      </div>
-      <div class="mb-4">
-        <NoteCard />
-      </div>
-      <div class="mb-4">
-        <NoteCard />
-      </div>
-      <div class="mb-4">
-        <NoteCard />
-      </div>
-      <div class="mb-4">
-        <NoteCard />
-      </div>
-      <div class="mb-4">
-        <NoteCard />
+        <NoteCard v-for="note in notes" :key="note.id" :note="note" />
       </div>
     </main>
     <footer class="text-center p-5">
-      <button class="bg-blue-500 py-2 px-20 rounded-3xl text-white hover:bg-blue-600">
+      <button  @click="createNote" class="bg-blue-500 py-2 px-20 rounded-3xl text-white hover:bg-blue-600">
         + Criar anotação
       </button>
     </footer>
@@ -34,10 +19,32 @@
 
 <script>
 import NoteCard from './NoteCard.vue'
+import { getAllNotes } from '../../indexdb';
 
 export default {
   components: {
     NoteCard
+  },
+  data() {
+    return {
+      notes: []  
+    };
+  },
+  mounted() {
+    this.fetchNotes();
+  },
+  methods: {
+    async fetchNotes() {
+      try {
+        const notes = await getAllNotes();
+        this.notes = notes;
+      } catch (error) {
+        console.error('Erro ao obter notas:', error);
+      }
+    },
+    createNote() {
+      this.$emit('create-note')
+    }
   }
 }
 </script>
