@@ -38,7 +38,7 @@
 </pre>
 <pre>
   <code>
-     node server.js
+    node server.js
   </code>
 </pre>
 

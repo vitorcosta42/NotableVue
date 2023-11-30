@@ -47,7 +47,8 @@ export default {
     },
     createNote() {
       this.$emit('create-note')
-    }
+    },
+   
   }
 }
 </script>
