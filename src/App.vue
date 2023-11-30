@@ -1,16 +1,22 @@
 <template>
   <div class="flex bg-[#e5e5e5] p-4">
     <aside class="w-1/3 bg-[#f4f3f8] mr-4 rounded-2xl">
-      <ListNotes @create-note="showCreateNote"/>
+      <ListNotes @create-note="showCreateNote" @open-note-detail="openNoteDetailHandler" />
     </aside>
-    <div v-if="hasNotes" class="w-2/3 bg-[#f4f3f8] rounded-2xl">
-      <NoteDetail />
+    <div
+      v-if="showNoteDetailComponent && !showEmptyScreenComponent"
+      class="w-2/3 bg-[#f4f3f8] rounded-2xl"
+    >
+      <NoteDetail @empty-screen="showEmptyScreen" :note-id="selectedNote" />
     </div>
-    <div v-if="showCreateNoteComponent" class="w-2/3 bg-[#f4f3f8] rounded-2xl">
+    <div
+      v-if="showCreateNoteComponent && !showEmptyScreenComponent"
+      class="w-2/3 bg-[#f4f3f8] rounded-2xl"
+    >
       <CreateNote @empty-screen="showEmptyScreen" />
     </div>
     <div
-      v-if="!showCreateNoteComponent && showEmptyScreenComponent"
+      v-if="!showCreateNoteComponent && showEmptyScreenComponent && !showNoteDetailComponent"
       class="w-2/3 bg-[#f4f3f8] rounded-2xl"
     >
       <EmptyScreen @create-note="showCreateNote" />
@@ -20,7 +26,7 @@
 
 <script>
 import ListNotes from '@/components/ListNotes.vue'
-import NoteDetail from '@/components/NoteDetail.vue'
+import NoteDetail from './components/NoteDetail.vue'
 import CreateNote from './components/CreateNote.vue'
 import EmptyScreen from './components/EmptyScreen.vue'
 
@@ -31,30 +37,48 @@ export default {
     CreateNote,
     EmptyScreen
   },
+  watch: {
+    selectedNote(newNoteId, oldNoteId) {
+      if (newNoteId !== oldNoteId) {
+        this.showNoteDetailComponent = false
+        setTimeout(() => {
+          this.showNoteDetailComponent = true
+        }, 100)
+      }
+    }
+  },
   data() {
     return {
       selectedNote: null,
       notes: [],
       showCreateNoteComponent: false,
-      showEmptyScreenComponent: true
+      showEmptyScreenComponent: true,
+      showNoteDetailComponent: false
     }
   },
+
   methods: {
-    selectNote(note) {
-      this.selectedNote = note
-    },
     showCreateNote() {
-      this.showCreateNoteComponent = true
-      this.showEmptyScreenComponent = false
+      this.showComponent(true, false, false)
     },
     showEmptyScreen() {
-      this.showEmptyScreenComponent = true
-      this.showCreateNoteComponent = false
-    }
-  },
-  computed: {
+      this.showComponent(false, true, false)
+    },
+    showNoteDetail() {
+      this.showComponent(false, false, true)
+    },
+    showComponent(createNote, emptyScreen, noteDetail) {
+      this.showCreateNoteComponent = createNote
+      this.showEmptyScreenComponent = emptyScreen
+      this.showNoteDetailComponent = noteDetail
+    },
     hasNotes() {
       return this.notes.length > 0
+    },
+    openNoteDetailHandler(noteId) {
+      this.selectedNote = noteId
+      console.log('Opening note detail for note with ID:', noteId)
+      this.showNoteDetail()
     }
   }
 }

@@ -27,14 +27,19 @@
           <label for="potencialNegocio" class="block text-gray-500 text-left mb-4"
             >Potencial do negócio</label
           >
-          <input
-            v-model="potencialNegocio"
-            class="p-3 rounded-full w-full focus:outline-none focus:ring focus:ring-gray-800"
-            type="number"
-            id="potencialNegocio"
-            name="potencialNegocio"
-            placeholder="R$00,00"
-          />
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500"> R$ </span>
+            <input
+              v-model="potencialNegocio"
+              class="pl-10 pr-3 py-3 rounded-full w-full focus:outline-none focus:ring focus:ring-gray-800"
+              type="text"
+              id="potencialNegocio"
+              name="potencialNegocio"
+              placeholder="00,00"
+              inputmode="numeric"
+              pattern="[0-9]*"
+            />
+          </div>
         </div>
 
         <div class="px-8 pb-5">
@@ -42,9 +47,10 @@
             >Categorização</label
           >
           <vue3-tags-input
-            v-model="categorizacao"
+            :tags="categorizacao"
             class="bg-white p-2 text-gray-500 border-0 focus:border-4 focus:border- focus:outline-none focus:ring focus:ring-gray-800 rounded-full w-full"
             placeholder="Digite categorias para a anotação..."
+            @on-tags-changed="handleChangeTag"
           />
         </div>
 
@@ -94,12 +100,13 @@ export default {
     Vue3TagsInput,
     WidgetContainerModal: container
   },
+
   data() {
     return {
       anotacoes: '',
       potencialNegocio: '',
       categorizacao: [],
-      lembrete: ''
+      lembrete: '',
     }
   },
   emits: ['empty-screen'],
@@ -108,17 +115,26 @@ export default {
       const props = {}
       openModal(DeleteConfirmModal, props)
     },
+    handleChangeTag(categorizacao) {
+      this.categorizacao = categorizacao
+    },
     emptyScreen() {
       this.$emit('empty-screen')
     },
     async createNote() {
       const { anotacoes, potencialNegocio, categorizacao, lembrete } = this
+      const categorizacaoToStore = JSON.stringify(categorizacao)
+
+      const currentDate = new Date();
+      const horaMinutos = currentDate.getHours() + ':' + (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
+
 
       const newNote = {
         anotacoes,
         potencialNegocio,
-        categorizacao: categorizacao.toString(),
-        lembrete
+        categorizacao: categorizacaoToStore,
+        lembrete,
+        horaMinutos 
       }
 
       await addNote(newNote)
@@ -134,6 +150,7 @@ export default {
 </script>
 
 <style lang="css">
+
 .v3ti .v3ti-tag {
   border-radius: 20px;
   background: rgb(243, 242, 242);

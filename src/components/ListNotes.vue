@@ -6,7 +6,7 @@
     </header>
     <main class="p-5 flex-grow">
       <div class="mb-4">
-        <NoteCard v-for="note in notes" :key="note.id" :note="note" />
+        <NoteCard v-for="note in notes" :key="note.id" :note="note" @open-note-detail="openNoteDetailHandler"/>
       </div>
     </main>
     <footer class="text-center p-5">
@@ -41,6 +41,9 @@ export default {
       } catch (error) {
         console.error('Erro ao obter notas:', error);
       }
+    },
+    openNoteDetailHandler(noteId) {
+      this.$emit('open-note-detail', noteId);
     },
     createNote() {
       this.$emit('create-note')
