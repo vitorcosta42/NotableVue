@@ -38,7 +38,10 @@
 5. Certifique-se de adicionar o IP do seu servidor à lista de IPs permitidos.
 
 6. Anote o endereço do cluster MongoDB, pois você precisará dele para configurar a aplicação.
-  
+<div>
+   <img width="500" src= "./public/connect.png" />
+   <img width="500" src= "./public/drivers.png" />
+</div>
 
 <h3>3. Entre no repositório clonado e instale as dependências:</h3>
 <pre>
@@ -47,7 +50,7 @@
   </code>
 </pre>
 
-<h3>4. Configure as variáveis de ambiente:</h3>
+<h3>4. Configure as variáveis de ambiente no .env e o endereço do Cluster no server.js:</h3>
 <pre>
   <code>
     Crie um arquivo .env na raiz do projeto e adicione as seguintes linhas:
@@ -56,6 +59,7 @@
   </code>
 </pre>
 
+ <img width="1000" src= "./public/cluster.png" />
 <h3>5. Inicie o servidor Vue e o servidor Node</h3>
 <pre>
   <code>
