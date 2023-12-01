@@ -5,15 +5,17 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
 dotenv.config();
+
 const app = express();
 const port = 3000;
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET; 
 
-const mongoDBURL = `mongodb+srv://vitorcostadev:${process.env.MONGODB_PASSWORD}@cluster0.uk52orr.mongodb.net/?retryWrites=true&w=majority`;
+const JWT_SECRET = process.env.JWT_SECRET;
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
+
+const mongoDBURL= `mongodb+srv://vitorcostadev:${MONGODB_PASSWORD}@cluster0.uk52orr.mongodb.net/?retryWrites=true&w=majority`
 
 app.use(cors());
 app.use(bodyParser.json());
