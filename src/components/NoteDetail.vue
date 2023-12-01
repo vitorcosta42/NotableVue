@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <header class="flex justify-between items-center p-8">
-      <h2 class="text-2xl font-bold text-gray-600">Anotações</h2>
+      <h2 class="text-2xl font-bold text-gray-600">NotableVue</h2>
       <button
         @click="emptyScreen"
         class="text-2xl text-gray-400 hover:text-gray-600"

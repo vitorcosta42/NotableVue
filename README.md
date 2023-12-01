@@ -11,7 +11,7 @@
 
 <h2>Descrição</h2>
 <p>
-  Teste técnico full-stack utilizando Vue.js e Tailwind para o Front-end, e Node, Express e MongoDB para o back-end. Temos criação, edição, exclusão e listagem de anotações em um projeto simples e amigável aos usuários. 
+  Esse projeto carinhosamente nomeado como NotableVue é um teste técnico full-stack utilizando Vue.js e Tailwind para o Front-end, e IndexDB, Node, Express e MongoDB para o back-end. Temos criação, edição, exclusão e listagem de anotações em um projeto simples e amigável aos usuários. 
 </p>
 
 <h2>Como utilizar</h2>
