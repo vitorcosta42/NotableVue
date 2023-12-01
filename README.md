@@ -23,6 +23,23 @@
   </code>
 </pre>
 
+
+<h3>2. Configuração do MongoDB:</h3>
+
+  
+ Antes de iniciar a aplicação, você precisará configurar um banco de dados MongoDB. Siga as etapas abaixo:
+
+1. Acesse o [MongoDB Atlas] (https://www.mongodb.com/cloud/atlas) e faça login ou crie uma conta, se necessário.
+   
+2. Crie um novo cluster MongoDB ou use um já existente. Isso pode levar alguns minutos.
+    
+4. Crie um novo banco de dados. Anote o nome do banco de dados que você criar.
+
+5. Certifique-se de adicionar o IP do seu servidor à lista de IPs permitidos.
+
+6. Anote o endereço do cluster MongoDB, pois você precisará dele para configurar a aplicação.
+  
+
 <h3>2. Entre no repositório clonado e instale as dependências:</h3>
 <pre>
   <code>
@@ -30,7 +47,16 @@
   </code>
 </pre>
 
-<h3>3. Inicie o servidor Vue e o servidor Node</h3>
+<h3>3. Configure as variáveis de ambiente:</h3>
+<pre>
+  <code>
+    Crie um arquivo .env na raiz do projeto e adicione as seguintes linhas:
+    MONGODB_PASSWORD=sua_senha_do_mongo
+    JWT_SECRET=sua_chave_secreta
+  </code>
+</pre>
+
+<h3>5. Inicie o servidor Vue e o servidor Node</h3>
 <pre>
   <code>
     npm run dev
@@ -41,6 +67,18 @@
     node server.js
   </code>
 </pre>
+
+<h3>6. Endpoints da API:</h3>
+<pre>
+  <code>
+    POST /api/persist - Envia as notas cadastradas no IndexDB ao banco de dados e gera um token de recuperação.
+    GET /api/retrieve/:token - Recupera notas associadas a um token.
+  </code>
+</pre>
+<h3>7. Considerações de Implantação:</h3>
+  
+Em um ambiente de produção, certifique-se de gerenciar de forma segura informações sensíveis, como senhas e chaves secretas.
+
 <h6>Após realizar esta sequência de passos a aplicação já estará pronta para ser utilizada, se seguiu o padrão do Vite, ela poderá ser acessada em <a href="http://localhost:5173/" >http://localhost:5173/</a> </h6>
 <h2>Créditos</h2>
 <table>
