@@ -42,7 +42,6 @@ export default {
   props: {
     noteId: {
       type: Number,
-      required: true
     }
   },
   methods: {
@@ -50,6 +49,11 @@ export default {
       closeModal()
     },
     confirmDelete() {
+      if (typeof this.noteId === 'undefined' || this.noteId === null) {
+        this.handleCloseModal();
+        window.location.reload();
+        return;
+      }
       removeNote(this.noteId)
         .then(() => {
           console.log('Nota deletada com sucesso!')

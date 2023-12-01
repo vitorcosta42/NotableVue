@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col  min-h-screen">
+  <div class="flex flex-col min-h-screen">
     <header class="flex justify-between items-center p-8">
       <h2 class="text-2xl font-bold text-gray-600">Anotações</h2>
       <button
@@ -70,9 +70,9 @@
     <footer class="text-center p-5">
       <button
         class="mr-4 items-center rounded-full p-2 text-center m-auto bg-red-400 hover:bg-red-500"
-        @click="openDeleteConfirmModal"
+        @click="openDeleteConfirmModal(noteId)"
       >
-        <v-icon name="bi-trash" class="text-gray-100" />
+        <v-icon  name="bi-trash" class="text-gray-100" />
       </button>
 
       <button
@@ -123,8 +123,8 @@ export default {
     this.lembrete = note.lembrete
   },
   methods: {
-    openDeleteConfirmModal() {
-      const props = {}
+    openDeleteConfirmModal(noteId) {
+      const props = { noteId }
       openModal(DeleteConfirmModal, props)
     },
     handleChangeTag(categorizacao) {

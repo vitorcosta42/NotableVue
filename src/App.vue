@@ -3,7 +3,7 @@
     <aside v-if="showListNotes" class="w-1/3 bg-[#f4f3f8] mr-4 rounded-2xl">
       <ListNotes @create-note="handleCreateNote" @open-note-detail="openNoteDetailHandler" />
     </aside>
-    <aside v-if="showListNotesMobile" class="w-full bg-[#f4f3f8] mr-4 rounded-2xl">
+    <aside v-if="showListNotesMobile" class="w-full bg-[#f4f3f8] rounded-2xl">
       <ListNotes @create-note="handleCreateNoteMobile" @open-note-detail="openNoteDetailHandler" />
     </aside>
 

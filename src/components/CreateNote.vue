@@ -31,7 +31,7 @@
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500"> R$ </span>
             <input
               v-model="potencialNegocio"
-              class="pl-10 pr-3 py-3 rounded-full w-full "
+              class="pl-10 pr-3 py-3 rounded-full w-full"
               type="text"
               id="potencialNegocio"
               name="potencialNegocio"
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="px-8 pb-5"  >
+        <div class="px-8 pb-5">
           <label for="categorizacao" class="block text-gray-500 text-left mb-4"
             >Categorização</label
           >
@@ -106,12 +106,17 @@ export default {
       anotacoes: '',
       potencialNegocio: '',
       categorizacao: [],
-      lembrete: '',
+      lembrete: ''
     }
   },
   emits: ['empty-screen'],
   methods: {
     openModalHandler() {
+      const { anotacoes, potencialNegocio, categorizacao, lembrete } = this
+      if (!anotacoes && !potencialNegocio && categorizacao.length === 0 && !lembrete) {
+        this.deleteNote()
+        return
+      }
       const props = {}
       openModal(DeleteConfirmModal, props)
     },
@@ -125,16 +130,19 @@ export default {
       const { anotacoes, potencialNegocio, categorizacao, lembrete } = this
       const categorizacaoToStore = JSON.stringify(categorizacao)
 
-      const currentDate = new Date();
-      const horaMinutos = currentDate.getHours() + ':' + (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
-
+      const currentDate = new Date()
+      const horaMinutos =
+        currentDate.getHours() +
+        ':' +
+        (currentDate.getMinutes() < 10 ? '0' : '') +
+        currentDate.getMinutes()
 
       const newNote = {
         anotacoes,
         potencialNegocio,
         categorizacao: categorizacaoToStore,
         lembrete,
-        horaMinutos 
+        horaMinutos
       }
 
       await addNote(newNote)
@@ -150,7 +158,6 @@ export default {
 </script>
 
 <style lang="css">
-
 .v3ti .v3ti-tag {
   border-radius: 20px;
   background: rgb(243, 242, 242);
@@ -165,5 +172,4 @@ export default {
 .v3ti .v3ti-tag .v3ti-remove-tag:hover {
   color: gray;
 }
-
 </style>

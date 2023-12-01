@@ -9,6 +9,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 const port = 3000;
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = '20/01/2003'; 
 
 const mongoDBURL = `mongodb+srv://vitorcostadev:${process.env.MONGODB_PASSWORD}@cluster0.uk52orr.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -31,32 +34,42 @@ const Note = mongoose.model('Note', {
   lembrete: Date,
 });
 
-app.get('/api/notes', async (req, res) => {
+app.post('/api/persist', async (req, res) => {
+  const { data } = req.body;
+
   try {
-    const notes = await Note.find();
-    res.json(notes);
+    const newNote = new Note(data);
+    await newNote.save();
+
+    const token = jwt.sign({ noteId: newNote._id }, JWT_SECRET);
+
+    res.json({ token });
   } catch (error) {
-    console.error('Erro ao obter notas:', error);
-    res.status(500).json({ error: 'Erro ao obter notas.' });
+    console.error('Erro ao persistir dados:', error);
+    res.status(500).json({ error: 'Erro ao persistir dados.' });
   }
 });
 
-app.post('/api/notes', async (req, res) => {
-  const { anotacoes, potencialNegocio, categorizacao, lembrete } = req.body;
+app.get('/api/retrieve/:token', async (req, res) => {
+  const { token } = req.params;
 
   try {
-    const newNote = new Note({
-      anotacoes,
-      potencialNegocio,
-      categorizacao,
-      lembrete,
-    });
+    const decoded = jwt.verify(token, JWT_SECRET);
 
-    await newNote.save();
-    res.json(newNote);
+    if (!decoded.noteId) {
+      throw new Error('Token inválido');
+    }
+
+    const note = await Note.findById(decoded.noteId);
+
+    if (!note) {
+      throw new Error('Nota não encontrada');
+    }
+    
+    res.json({ data: note });
   } catch (error) {
-    console.error('Erro ao registrar nota:', error);
-    res.status(500).json({ error: 'Erro ao registrar nota.' });
+    console.error('Erro ao recuperar dados:', error);
+    res.status(500).json({ error: 'Erro ao recuperar dados.' });
   }
 });
 

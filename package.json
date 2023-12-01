@@ -21,6 +21,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jenesius-vue-modal": "^1.10.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.2",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
