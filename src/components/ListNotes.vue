@@ -82,18 +82,29 @@ export default {
       this.$emit('create-note')
     },
     async persistDataHandler() {
-      try {
-        const notesData = this.notes.map((note) => note.data)
-        const lastToken = await persistDataToDB({ notes: notesData, userId: this.userId })
-        this.persistedToken = lastToken
-        const props = { lastToken }
-        openModal(TokenModal, { token: props.lastToken })
-        console.log(this.persistedToken)
-        console.log('Data persisted successfully to the server.')
-      } catch (error) {
-        console.error('Error persisting data:', error)
+  try {
+    console.log(this.notes);
+
+    const notesData = [];
+    for (const note of this.notes) {
+      if (note && note.data) {
+        notesData.push(note.data);
       }
-    },
+    }
+
+    const lastToken = await persistDataToDB({ notes: notesData });
+    this.persistedToken = lastToken;
+    
+    const props = { lastToken };
+    openModal(TokenModal, { token: props.lastToken });
+
+    console.log(this.persistedToken);
+    console.log('Data persisted successfully to the server.');
+  } catch (error) {
+    console.error('Error persisting data:', error);
+  }
+},
+
     async retrieveDataHandler() {
       console.log(this.persistedToken)
       const token = this.persistedToken

@@ -35,16 +35,16 @@ const Note = mongoose.model('Note', {
   categorizacao: [String],
   lembrete: Date,
 });
-
 app.post('/api/persist', async (req, res) => {
-  const { data, userId } = req.body;
+  
+  console.log('Corpo da Requisição:', req.body);
+  const { data} = req.body;
 
   try {
-    console.log(userId)
-    const newNote = new Note({ ...data, userId });
+    const newNote = new Note({ ...data });
     await newNote.save();
 
-    const token = jwt.sign({ userId }, JWT_SECRET); 
+    const token = jwt.sign({}, JWT_SECRET); 
 
     res.json({ token });
   } catch (error) {
@@ -52,6 +52,8 @@ app.post('/api/persist', async (req, res) => {
     res.status(500).json({ error: 'Erro ao persistir dados.' });
   }
 });
+
+
 
 
 app.get('/api/retrieve/:token', async (req, res) => {
