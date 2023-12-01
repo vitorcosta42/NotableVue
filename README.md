@@ -41,7 +41,7 @@
     node server.js
   </code>
 </pre>
-
+<h6>Após realizar esta sequência de passos a aplicação já estará pronta para ser utilizada, se seguiu o padrão do Vite, ela poderá ser acessada em <a href="http://localhost:5173/" >http://localhost:5173/</a> </h6>
 <h2>Créditos</h2>
 <table>
   <tr>

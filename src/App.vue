@@ -128,6 +128,7 @@ export default {
         !this.showCreateNoteComponent &&
         !this.showEmptyScreenComponent &&
         this.showNoteDetailComponent &&
+        this.windowWidth < 768 &&
         this.notes.length > 0
       )
     },
@@ -136,8 +137,7 @@ export default {
         this.showCreateNoteComponent &&
         !this.showEmptyScreenComponent &&
         !this.showNoteDetailComponent &&
-        this.windowWidth >= 768 &&
-        this.notes.length > 0
+        this.windowWidth >= 768
       )
     },
     showCreateNoteMobile() {
@@ -167,7 +167,7 @@ export default {
     },
 
     showListNotes() {
-      return this.notes.length > 0 && this.windowWidth >= 768
+      return this.windowWidth >= 768
     },
 
     showListNotesMobile() {
