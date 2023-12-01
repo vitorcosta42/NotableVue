@@ -83,27 +83,32 @@ export default {
     },
     async persistDataHandler() {
   try {
-    console.log(this.notes);
+    const notesData = [...this.notes].map((note) => {
+      
+      const data = {
+        anotacoes: note.anotacoes,
+        potencialNegocio: note.potencialNegocio,
+        categorizacao: note.categorizacao,
+        lembrete: note.lembrete,
+        horaMinutos: note.horaMinutos,
+      };
 
-    const notesData = [];
-    for (const note of this.notes) {
-      if (note && note.data) {
-        notesData.push(note.data);
-      }
-    }
-
+      return data;
+    });
     const lastToken = await persistDataToDB({ notes: notesData });
     this.persistedToken = lastToken;
     
     const props = { lastToken };
     openModal(TokenModal, { token: props.lastToken });
 
-    console.log(this.persistedToken);
     console.log('Data persisted successfully to the server.');
   } catch (error) {
     console.error('Error persisting data:', error);
   }
-},
+}
+,
+
+
 
     async retrieveDataHandler() {
       console.log(this.persistedToken)

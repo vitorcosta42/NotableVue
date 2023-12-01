@@ -35,16 +35,35 @@ const Note = mongoose.model('Note', {
   categorizacao: [String],
   lembrete: Date,
 });
+
 app.post('/api/persist', async (req, res) => {
-  
-  console.log('Corpo da Requisição:', req.body);
-  const { data} = req.body;
-
   try {
-    const newNote = new Note({ ...data });
-    await newNote.save();
+    const { data } = req.body;
 
-    const token = jwt.sign({}, JWT_SECRET); 
+    if (!Array.isArray(data.notes)) {
+      throw new Error('A propriedade "notes" deve ser um array.');
+    }
+
+    const newNotes = data.notes.map(noteData => {
+      if (typeof noteData.categorizacao === 'string') {
+        noteData.categorizacao = JSON.parse(noteData.categorizacao);
+      }
+
+      const newNote = new Note();
+      Object.assign(newNote, noteData);
+      return newNote;
+    });
+
+    await Promise.all(newNotes.map(async note => {
+      try {
+        await note.save();
+      } catch (error) {
+        console.error('Erro ao salvar nota:', error);
+        throw error;
+      }
+    }));
+
+    const token = jwt.sign({}, JWT_SECRET);
 
     res.json({ token });
   } catch (error) {
@@ -52,6 +71,8 @@ app.post('/api/persist', async (req, res) => {
     res.status(500).json({ error: 'Erro ao persistir dados.' });
   }
 });
+
+
 
 
 

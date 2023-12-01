@@ -151,7 +151,6 @@ const persistDataToDB = async (note) => {
       },
       body: JSON.stringify({ data: note })
     })
-
     const responseData = await response.json()
 
     if (responseData) {
@@ -167,40 +166,38 @@ const persistDataToDB = async (note) => {
 
 const retrieveDataToDB = async (token) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/retrieve/${token}`);
-    const responseData = await response.json();
+    const response = await fetch(`http://localhost:3000/api/retrieve/${token}`)
+    const responseData = await response.json()
 
     if (responseData.data) {
-      return [responseData.data]; 
+      return [responseData.data]
     } else {
-      throw new Error('Failed to retrieve data. Server error: ' + responseData.error);
+      throw new Error('Failed to retrieve data. Server error: ' + responseData.error)
     }
   } catch (error) {
-    console.error('Error retrieving data from server:', error);
-    throw error;
+    console.error('Error retrieving data from server:', error)
+    throw error
   }
-};
-
+}
 
 const restoreDataToIndexedDB = async (token) => {
   try {
-    const retrievedData = await retrieveDataToDB(token);
+    const retrievedData = await retrieveDataToDB(token)
 
-    const db = await openDB(); 
-    const transaction = db.transaction('notes', 'readwrite');
-    const objectStore = transaction.objectStore('notes');
-
+    const db = await openDB()
+    const transaction = db.transaction('notes', 'readwrite')
+    const objectStore = transaction.objectStore('notes')
 
     for (const noteData of retrievedData) {
-      objectStore.add(noteData);
+      objectStore.add(noteData)
     }
 
-    console.log('Data restored successfully to IndexedDB.');
+    console.log('Data restored successfully to IndexedDB.')
   } catch (error) {
-    console.error('Error restoring data:', error);
-    throw error;
+    console.error('Error restoring data:', error)
+    throw error
   }
-};
+}
 
 export {
   addNote,
