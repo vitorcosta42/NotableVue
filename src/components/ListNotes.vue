@@ -29,9 +29,11 @@
         >
           <v-icon name="bi-save" class="text-gray-100" />
         </button>
+        <!-- @click="retrieveDataHandler" -->
+
         <button
           title="Restaurar Dados"
-          @click="retrieveDataHandler"
+          @click="openInsertTokenModal"
           class="bg-yellow-500 py-2 px-2 rounded-3xl text-white hover:bg-yellow-600 mb-3"
         >
           <v-icon name="hi-refresh" class="text-gray-100" />
@@ -46,6 +48,7 @@
 import { OhVueIcon } from 'oh-vue-icons'
 import NoteCard from './NoteCard.vue'
 import TokenModal from './TokenModal.vue'
+import InsertTokenModal from './InsertTokenModal.vue'
 import { container } from 'jenesius-vue-modal'
 import { openModal } from 'jenesius-vue-modal'
 import { getAllNotes, persistDataToDB, restoreDataToIndexedDB } from '../../indexdb'
@@ -81,35 +84,36 @@ export default {
     createNote() {
       this.$emit('create-note')
     },
+    openInsertTokenModal() {
+      const modalInstance = openModal(InsertTokenModal)
+      modalInstance.component.instance.$on('token-confirmed', (enteredToken) => {
+        console.log('Entered Token from Modal:', enteredToken)
+      })
+    },
     async persistDataHandler() {
-  try {
-    const notesData = [...this.notes].map((note) => {
-      
-      const data = {
-        anotacoes: note.anotacoes,
-        potencialNegocio: note.potencialNegocio,
-        categorizacao: note.categorizacao,
-        lembrete: note.lembrete,
-        horaMinutos: note.horaMinutos,
-      };
+      try {
+        const notesData = [...this.notes].map((note) => {
+          const data = {
+            anotacoes: note.anotacoes,
+            potencialNegocio: note.potencialNegocio,
+            categorizacao: note.categorizacao,
+            lembrete: note.lembrete,
+            horaMinutos: note.horaMinutos
+          }
 
-      return data;
-    });
-    const lastToken = await persistDataToDB({ notes: notesData });
-    this.persistedToken = lastToken;
-    
-    const props = { lastToken };
-    openModal(TokenModal, { token: props.lastToken });
+          return data
+        })
+        const lastToken = await persistDataToDB({ notes: notesData })
+        this.persistedToken = lastToken
 
-    console.log('Data persisted successfully to the server.');
-  } catch (error) {
-    console.error('Error persisting data:', error);
-  }
-}
-,
+        const props = { lastToken }
+        openModal(TokenModal, { token: props.lastToken })
 
-
-
+        console.log('Data persisted successfully to the server.')
+      } catch (error) {
+        console.error('Error persisting data:', error)
+      }
+    },
     async retrieveDataHandler() {
       console.log(this.persistedToken)
       const token = this.persistedToken

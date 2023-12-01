@@ -86,7 +86,7 @@
   <code>
     Para recuperar dados, o usuário apertará no botão amarelo, um Modal surgirá e ele digitará seu token 
   </code>
-   <img width="1000" src= "./public/print-save.png" />
+   <img width="1000" src= "./public/print-retrieve.png" />
 </pre>
 
 
