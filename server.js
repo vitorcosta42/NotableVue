@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = {$process.env.JWT_SECRET}; 
+const JWT_SECRET = process.env.JWT_SECRET; 
 
 const mongoDBURL = `mongodb+srv://vitorcostadev:${process.env.MONGODB_PASSWORD}@cluster0.uk52orr.mongodb.net/?retryWrites=true&w=majority`;
 
