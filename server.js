@@ -35,13 +35,14 @@ const Note = mongoose.model('Note', {
 });
 
 app.post('/api/persist', async (req, res) => {
-  const { data } = req.body;
+  const { data, userId } = req.body;
 
   try {
-    const newNote = new Note(data);
+    console.log(userId)
+    const newNote = new Note({ ...data, userId });
     await newNote.save();
 
-    const token = jwt.sign({ noteId: newNote._id }, JWT_SECRET);
+    const token = jwt.sign({ userId }, JWT_SECRET); 
 
     res.json({ token });
   } catch (error) {
@@ -50,28 +51,30 @@ app.post('/api/persist', async (req, res) => {
   }
 });
 
+
 app.get('/api/retrieve/:token', async (req, res) => {
   const { token } = req.params;
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    if (!decoded.noteId) {
+    if (!decoded.userId) {
       throw new Error('Token inválido');
     }
 
-    const note = await Note.findById(decoded.noteId);
+    const notes = await Note.find({}); 
 
-    if (!note) {
-      throw new Error('Nota não encontrada');
+    if (!notes || notes.length === 0) {
+      throw new Error('Nenhuma nota encontrada');
     }
-    
-    res.json({ data: note });
+
+    res.json({ data: notes });
   } catch (error) {
     console.error('Erro ao recuperar dados:', error);
     res.status(500).json({ error: 'Erro ao recuperar dados.' });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

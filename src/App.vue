@@ -1,10 +1,10 @@
 <template>
   <div class="flex bg-[#e5e5e5] p-4">
     <aside v-if="showListNotes" class="w-1/3 bg-[#f4f3f8] mr-4 rounded-2xl">
-      <ListNotes @create-note="handleCreateNote" @open-note-detail="openNoteDetailHandler" />
+      <ListNotes @create-note="handleCreateNote" @open-note-detail="handleNoteDetail" />
     </aside>
     <aside v-if="showListNotesMobile" class="w-full bg-[#f4f3f8] rounded-2xl">
-      <ListNotes @create-note="handleCreateNoteMobile" @open-note-detail="openNoteDetailHandler" />
+      <ListNotes @create-note="handleCreateNoteMobile" @open-note-detail="handleNoteDetailMobile" />
     </aside>
 
     <div v-if="showNoteDetail" class="w-2/3 bg-[#f4f3f8] rounded-2xl">
@@ -89,9 +89,13 @@ export default {
       this.showNoteDetailComponent = noteDetail
       this.showListNotesComponent = listNotes
     },
-    openNoteDetailHandler(noteId) {
+    handleNoteDetail(noteId) {
       this.selectedNote = noteId
       this.showComponent(false, false, true)
+    },
+    handleNoteDetailMobile(noteId) {
+      this.selectedNote = noteId
+      this.showComponent(false, false, true, false)
     },
     handleCreateNote() {
       this.showComponent(true, false, false)
@@ -124,7 +128,7 @@ export default {
         !this.showCreateNoteComponent &&
         !this.showEmptyScreenComponent &&
         this.showNoteDetailComponent &&
-        this.notes.length <= 0
+        this.notes.length > 0
       )
     },
     showCreateNote() {
@@ -163,12 +167,16 @@ export default {
     },
 
     showListNotes() {
-      return  this.notes.length > 0 && this.windowWidth >= 768
+      return this.notes.length > 0 && this.windowWidth >= 768
     },
 
     showListNotesMobile() {
-      return !this.showCreateNoteComponent &&
-       this.windowWidth < 768 && this.notes.length > 0
+      return (
+        !this.showCreateNoteComponent &&
+        !this.showNoteDetailComponent &&
+        this.windowWidth < 768 &&
+        this.notes.length > 0
+      )
     }
   }
 }

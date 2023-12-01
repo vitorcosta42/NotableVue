@@ -9,7 +9,8 @@
       <h1 class="mb-2 underline">{{ note.anotacoes }}</h1>
 
       <div class="text-sm text-gray-500">
-        <span> {{ formattedLembrete }} </span> <span> {{ note.horaMinutos }}</span>
+        <span> {{ formattedLembrete }} </span> 
+        <span> {{ note.horaMinutos }}</span>
       </div>
     </div>
 
