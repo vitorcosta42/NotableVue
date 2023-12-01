@@ -40,14 +40,14 @@
 6. Anote o endereço do cluster MongoDB, pois você precisará dele para configurar a aplicação.
   
 
-<h3>2. Entre no repositório clonado e instale as dependências:</h3>
+<h3>3. Entre no repositório clonado e instale as dependências:</h3>
 <pre>
   <code>
     npm install
   </code>
 </pre>
 
-<h3>3. Configure as variáveis de ambiente:</h3>
+<h3>4. Configure as variáveis de ambiente:</h3>
 <pre>
   <code>
     Crie um arquivo .env na raiz do projeto e adicione as seguintes linhas:
@@ -68,14 +68,32 @@
   </code>
 </pre>
 
-<h3>6. Endpoints da API:</h3>
+<h3>6. Persistir Dados e Recuperar Dados </h3>
+
+<pre>
+  <code>
+    Para persistir dados basta o usuário apertar no botão verde na parte inferior, um Modal surgirá com seu token
+  </code>
+   <img width="1000" src= "./public/print-save.png" />
+</pre>
+
+<pre>
+  <code>
+    Para recuperar dados, o usuário apertará no botão amarelo, um Modal surgirá e ele digitará seu token 
+  </code>
+   <img width="1000" src= "./public/print-save.png" />
+</pre>
+
+
+<h3>7. Endpoints da API:</h3>
 <pre>
   <code>
     POST /api/persist - Envia as notas cadastradas no IndexDB ao banco de dados e gera um token de recuperação.
     GET /api/retrieve/:token - Recupera notas associadas a um token.
   </code>
 </pre>
-<h3>7. Considerações de Implantação:</h3>
+
+<h3>8. Considerações de Implantação:</h3>
   
 Em um ambiente de produção, certifique-se de gerenciar de forma segura informações sensíveis, como senhas e chaves secretas.
 
